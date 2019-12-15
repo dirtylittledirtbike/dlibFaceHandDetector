@@ -7,4 +7,4 @@ run in release mode otherwise significant lag.
 
 
 
-![screen shot](https://imgur.com/G6RBFbR)
+![screen shot](https://i.imgur.com/G6RBFbR.png)
