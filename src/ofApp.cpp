@@ -91,7 +91,6 @@ void ofApp::draw(){
             ofDrawBitmapString("Face Score: " + ofToString(allDets.detection_confidence, 2), video.getWidth() - rect.x - rect.width, rect.y - 3);
             
         } else if (allDets.weight_index == 2){
-            
             //color & draw truth rects for detector3
             ofSetColor(ofColor::blue);
             ofRectangle rect = ofxDlib::toOf(allDets.rect);
@@ -100,7 +99,6 @@ void ofApp::draw(){
             ofDrawBitmapString("Hand Score: " + ofToString(allDets.detection_confidence, 2), video.getWidth() - rect.x -rect.width, rect.y - 3);
             
         } else if (allDets.weight_index == 3){
-            
             //color & draw truth rects for detector4
             ofSetColor(ofColor::green);
             ofRectangle rect = ofxDlib::toOf(allDets.rect);
