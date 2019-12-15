@@ -109,7 +109,7 @@ void ofApp::draw(){
         
     }
     
-    ofPopStyle();
+    ofPopMatrix();
     
     //draw, display, and color gradient textures from hand && face detectors
     ofPushMatrix();
