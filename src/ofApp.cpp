@@ -6,8 +6,8 @@ using namespace dlib;
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    video.setDesiredFrameRate(30);
     video.setup(640, 480);
-    //video.setDesiredFrameRate(30);
     
     //load trained detectors from data/bin directory
     deserialize(ofToDataPath("face_detector.svm", true)) >> detector1;
@@ -29,16 +29,13 @@ void ofApp::update(){
     //setup video
     video.update();
     if (video.isFrameNew()){
-        //load current frame into pixel array
-        pixels = video.getPixels();
-        
         //run all detectors on video input && store detections
         // i.e. (rectangle coordinates) in allDets vector.
-        evaluate_detectors(my_detectors, pixels, allDets);
+        evaluate_detectors(my_detectors, video.getPixels(), allDets);
         
         //get fhog feature image from current video frame and store in ofPixel array
         array2d<matrix<float,31,1> > hog;
-        extract_fhog_features(pixels, hog);
+        extract_fhog_features(video.getPixels(), hog);
         fhogVidFrame = ofxDlib::toOf(draw_fhog(hog));
         
         //convert fhog feature images from detectors into ofPixels
@@ -48,7 +45,7 @@ void ofApp::update(){
         fhogImage4 = ofxDlib::toOf(draw_fhog(detector4));
         
         // load pixels into texture for displaying later
-        videoTex.loadData(pixels);
+        videoTex.loadData(video.getPixels());
         fhogTex1.loadData(fhogImage1);
         fhogTex2.loadData(fhogImage2);
         fhogTex3.loadData(fhogImage3);
@@ -163,7 +160,7 @@ void ofApp::draw(){
     
     //display fhog features of video feed
     ofSetColor(ofColor::white);
-    fhogVidTex.draw(video.getWidth() + video.getHeight()/4 + video.getWidth()/1.3, 0, -video.getWidth()/1.3, video.getHeight()/1.3);
+    fhogVidTex.draw(video.getWidth() + video.getHeight()/4 + video.getWidth()/1.3f, 0, -video.getWidth()/1.3f, video.getHeight()/1.3f);
 }
 
 //--------------------------------------------------------------

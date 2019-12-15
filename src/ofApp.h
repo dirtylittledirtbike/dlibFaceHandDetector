@@ -2,13 +2,6 @@
 
 #include "ofMain.h"
 #include "ofxDlib.h"
-#include <dlib/svm_threaded.h>
-#include <dlib/gui_widgets.h>
-#include <dlib/image_processing.h>
-#include <dlib/data_io.h>
-
-#include <iostream>
-#include <fstream>
 
 class ofApp : public ofBaseApp{
     
