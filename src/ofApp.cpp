@@ -33,12 +33,12 @@ void ofApp::update(){
         // i.e. (rectangle coordinates) in allDets vector.
         evaluate_detectors(my_detectors, video.getPixels(), allDets);
         
-        //get fhog feature image from current video frame and store in ofPixel array
+        //get fhog gradient image from current video frame and store in fhogVidFrame
         array2d<matrix<float,31,1> > hog;
         extract_fhog_features(video.getPixels(), hog);
         fhogVidFrame = ofxDlib::toOf(draw_fhog(hog));
         
-        //convert fhog feature images from detectors into ofPixels
+        //convert fhog gradient images from detectors into ofPixels
         fhogImage1 = ofxDlib::toOf(draw_fhog(detector1));
         fhogImage2 = ofxDlib::toOf(draw_fhog(detector2));
         fhogImage3 = ofxDlib::toOf(draw_fhog(detector3));
@@ -51,7 +51,7 @@ void ofApp::update(){
         fhogTex3.loadData(fhogImage3);
         fhogTex4.loadData(fhogImage4);
         
-        //load fhog feature image of video frame into texture
+        //load fhog gradient image of video frame into texture
         fhogVidTex.loadData(fhogVidFrame);
         
     }
@@ -76,14 +76,14 @@ void ofApp::draw(){
         
         //find which detector each rectangle came from by checking the weight_index.
         if (allDets.weight_index == 0){
-            //color & draw truth boxes for detector1
+            //color & draw truth rects for detector1
             ofSetColor(ofColor::yellow);
             ofRectangle rect = ofxDlib::toOf(allDets.rect);
             //adjust x position and rectangle width to match inverted video frame/draw rectangle
             ofDrawRectangle(video.getWidth() - rect.x, rect.y, -rect.width, rect.height);
             
         } else if (allDets.weight_index == 1){
-            //color & draw truth boxes for detector2
+            //color & draw truth rects for detector2
             ofSetColor(ofColor::red);
             ofRectangle rect = ofxDlib::toOf(allDets.rect);
             ofDrawRectangle(video.getWidth() - rect.x, rect.y, -rect.width, rect.height);
@@ -92,7 +92,7 @@ void ofApp::draw(){
             
         } else if (allDets.weight_index == 2){
             
-            //color & draw truth for detector3
+            //color & draw truth rects for detector3
             ofSetColor(ofColor::blue);
             ofRectangle rect = ofxDlib::toOf(allDets.rect);
             ofDrawRectangle(video.getWidth() - rect.x, rect.y, -rect.width, rect.height);
@@ -101,7 +101,7 @@ void ofApp::draw(){
             
         } else if (allDets.weight_index == 3){
             
-            //color & draw truth boxes for detector4
+            //color & draw truth rects for detector4
             ofSetColor(ofColor::green);
             ofRectangle rect = ofxDlib::toOf(allDets.rect);
             ofDrawRectangle(video.getWidth() - rect.x, rect.y, -rect.width, rect.height);
@@ -113,7 +113,7 @@ void ofApp::draw(){
     
     ofPopStyle();
     
-    //draw, display, and color fhog textures from hand && face detectors
+    //draw, display, and color gradient textures from hand && face detectors
     ofPushMatrix();
     ofSetColor(ofColor::white);
     for (auto& allDets: allDets){
@@ -154,13 +154,13 @@ void ofApp::draw(){
     fhogTex4.draw(video.getWidth(), video.getHeight() - video.getHeight()/4, video.getHeight()/4, video.getHeight()/4);
     ofPopMatrix();
     
-    //alternate display of fhog video feed
-    //    ofSetColor(ofColor::white);
-    //    fhogVidTex.draw(video.getWidth() - (video.getWidth() - video.getWidth()/1.5), video.getHeight(), -video.getWidth()/1.5, video.getHeight()/1.5);
-    
-    //display fhog features of video feed
+    //display fhog gradient from video feed
     ofSetColor(ofColor::white);
     fhogVidTex.draw(video.getWidth() + video.getHeight()/4 + video.getWidth()/1.3f, 0, -video.getWidth()/1.3f, video.getHeight()/1.3f);
+    
+    //alternate display of gradient from video feed
+    //    ofSetColor(ofColor::white);
+    //    fhogVidTex.draw(video.getWidth() - (video.getWidth() - video.getWidth()/1.5f), video.getHeight(), -video.getWidth()/1.5f, video.getHeight()/1.5f);
 }
 
 //--------------------------------------------------------------
