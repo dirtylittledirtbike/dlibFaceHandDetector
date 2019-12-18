@@ -173,7 +173,7 @@ void ofApp::draw(){
     //alternate display of gradient from video feed
     //    ofSetColor(ofColor::white);
     //    fhogVidTex.draw(video.getWidth() - (video.getWidth() - video.getWidth()/1.5f), video.getHeight(), -video.getWidth()/1.5f, video.getHeight()/1.5f);
-    cout << ofGetFrameRate() << endl;
+ 
 }
 
 //--------------------------------------------------------------
