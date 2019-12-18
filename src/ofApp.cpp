@@ -21,6 +21,21 @@ void ofApp::setup(){
     my_detectors.push_back(detector3);
     my_detectors.push_back(detector4);
     
+    //convert fhog gradient images from detectors into ofPixels
+    fhogImage1 = ofxDlib::toOf(draw_fhog(detector1));
+    fhogImage2 = ofxDlib::toOf(draw_fhog(detector2));
+    fhogImage3 = ofxDlib::toOf(draw_fhog(detector3));
+    fhogImage4 = ofxDlib::toOf(draw_fhog(detector4));
+    
+    //load gradient images into textures
+    fhogTex1.loadData(fhogImage1);
+    fhogTex2.loadData(fhogImage2);
+    fhogTex3.loadData(fhogImage3);
+    fhogTex4.loadData(fhogImage4);
+    
+    //bool for displaying gradient video
+    gradientVid = false;
+    
 }
 
 //--------------------------------------------------------------
@@ -32,27 +47,23 @@ void ofApp::update(){
         //run all detectors on video input && store detections
         // i.e. (rectangle coordinates) in allDets vector.
         evaluate_detectors(my_detectors, video.getPixels(), allDets);
-        
-        //get fhog gradient image from current video frame and store in fhogVidFrame
-        array2d<matrix<float,31,1> > hog;
-        extract_fhog_features(video.getPixels(), hog);
-        fhogVidFrame = ofxDlib::toOf(draw_fhog(hog));
-        
-        //convert fhog gradient images from detectors into ofPixels
-        fhogImage1 = ofxDlib::toOf(draw_fhog(detector1));
-        fhogImage2 = ofxDlib::toOf(draw_fhog(detector2));
-        fhogImage3 = ofxDlib::toOf(draw_fhog(detector3));
-        fhogImage4 = ofxDlib::toOf(draw_fhog(detector4));
-        
-        // load pixels into texture for displaying later
+       
+        //load video pixels into texture for displaying later
         videoTex.loadData(video.getPixels());
-        fhogTex1.loadData(fhogImage1);
-        fhogTex2.loadData(fhogImage2);
-        fhogTex3.loadData(fhogImage3);
-        fhogTex4.loadData(fhogImage4);
         
         //load fhog gradient image of video frame into texture
         fhogVidTex.loadData(fhogVidFrame);
+        
+        //if key pressed get fhog gradient image from current video frame and store in fhogVidFrame
+        if (ofGetKeyPressed(' ')){
+            array2d<matrix<float,31,1> > hog;
+            extract_fhog_features(video.getPixels(), hog);
+            fhogVidFrame = ofxDlib::toOf(draw_fhog(hog));
+            //load fhog gradient image of video into texture
+            fhogVidTex.loadData(fhogVidFrame);
+            //set bool to true for drawing gradient texture
+            gradientVid = true;
+        }
         
     }
     
@@ -104,7 +115,6 @@ void ofApp::draw(){
             ofRectangle rect = ofxDlib::toOf(allDets.rect);
             ofDrawRectangle(video.getWidth() - rect.x, rect.y, -rect.width, rect.height);
             
-            
         }
         
     }
@@ -153,17 +163,25 @@ void ofApp::draw(){
     ofPopMatrix();
     
     //display fhog gradient from video feed
+    if (gradientVid){
+        
     ofSetColor(ofColor::white);
     fhogVidTex.draw(video.getWidth() + video.getHeight()/4 + video.getWidth()/1.3f, 0, -video.getWidth()/1.3f, video.getHeight()/1.3f);
+        
+    }
     
     //alternate display of gradient from video feed
     //    ofSetColor(ofColor::white);
     //    fhogVidTex.draw(video.getWidth() - (video.getWidth() - video.getWidth()/1.5f), video.getHeight(), -video.getWidth()/1.5f, video.getHeight()/1.5f);
+    cout << ofGetFrameRate() << endl;
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    
+    //clear gradient video texture
+    if (key == 'c'){
+        gradientVid = !gradientVid;
+    }
 }
 
 //--------------------------------------------------------------

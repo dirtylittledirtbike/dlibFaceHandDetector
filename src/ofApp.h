@@ -43,5 +43,6 @@ public:
     ofPixels fhogVidFrame;
     ofTexture fhogVidTex;
     
+    bool gradientVid;
     
 };
