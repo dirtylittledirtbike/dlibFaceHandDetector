@@ -10,12 +10,12 @@ void ofApp::setup(){
     video.setup(640, 480);
     
     //load trained detectors from data/bin directory
-    //you can also use the all_hands.svm to detect both right and left hands
-    //since it was trained to not care about left/right hand asymmetry.
+    //you can also use the left_hand.svm/right_hand.svm's if you want to differentiate
+    //between left and right hands.
     deserialize(ofToDataPath("face_detector.svm", true)) >> detector1;
     deserialize(ofToDataPath("face_detector2.svm", true)) >> detector2;
-    deserialize(ofToDataPath("left_hand.svm", true)) >> detector3;
-    deserialize(ofToDataPath("right_hands.svm", true)) >> detector4;
+    deserialize(ofToDataPath("all_hands.svm", true)) >> detector3;
+    deserialize(ofToDataPath("all_hands2.svm", true)) >> detector4;
     
     //push trained detectors into vector
     my_detectors.push_back(detector1);
@@ -116,6 +116,8 @@ void ofApp::draw(){
             ofSetColor(ofColor::green);
             ofRectangle rect = ofxDlib::toOf(allDets.rect);
             ofDrawRectangle(video.getWidth() - rect.x, rect.y, -rect.width, rect.height);
+            //print confidence scores
+            ofDrawBitmapString("Hand Score: " + ofToString(allDets.detection_confidence, 2), video.getWidth() - rect.x -rect.width, rect.y - 3);
             
         }
         
