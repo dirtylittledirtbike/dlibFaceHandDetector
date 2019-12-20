@@ -116,8 +116,6 @@ void ofApp::draw(){
             ofSetColor(ofColor::green);
             ofRectangle rect = ofxDlib::toOf(allDets.rect);
             ofDrawRectangle(video.getWidth() - rect.x, rect.y, -rect.width, rect.height);
-            //print confidence scores
-            ofDrawBitmapString("Hand Score: " + ofToString(allDets.detection_confidence, 2), video.getWidth() - rect.x -rect.width, rect.y - 3);
             
         }
         
