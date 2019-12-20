@@ -15,7 +15,7 @@ void ofApp::setup(){
     deserialize(ofToDataPath("face_detector.svm", true)) >> detector1;
     deserialize(ofToDataPath("face_detector2.svm", true)) >> detector2;
     deserialize(ofToDataPath("left_hand.svm", true)) >> detector3;
-    deserialize(ofToDataPath("all_hands.svm", true)) >> detector4;
+    deserialize(ofToDataPath("right_hands.svm", true)) >> detector4;
     
     //push trained detectors into vector
     my_detectors.push_back(detector1);
