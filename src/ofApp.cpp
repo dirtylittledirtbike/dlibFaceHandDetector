@@ -10,10 +10,12 @@ void ofApp::setup(){
     video.setup(640, 480);
     
     //load trained detectors from data/bin directory
+    //you can also use the all_hands.svm to detect both right and left hands
+    //since it was trained to not care about left/right hand asymmetry.
     deserialize(ofToDataPath("face_detector.svm", true)) >> detector1;
     deserialize(ofToDataPath("face_detector2.svm", true)) >> detector2;
-    deserialize(ofToDataPath("hand_detector5.svm", true)) >> detector3;
-    deserialize(ofToDataPath("hand_detector_vert.svm", true)) >> detector4;
+    deserialize(ofToDataPath("left_hand.svm", true)) >> detector3;
+    deserialize(ofToDataPath("all_hands.svm", true)) >> detector4;
     
     //push trained detectors into vector
     my_detectors.push_back(detector1);
@@ -174,6 +176,7 @@ void ofApp::draw(){
     //    ofSetColor(ofColor::white);
     //    fhogVidTex.draw(video.getWidth() - (video.getWidth() - video.getWidth()/1.5f), video.getHeight(), -video.getWidth()/1.5f, video.getHeight()/1.5f);
  
+
 }
 
 //--------------------------------------------------------------

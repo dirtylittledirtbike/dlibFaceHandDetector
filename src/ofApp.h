@@ -31,10 +31,10 @@ public:
     ofVideoGrabber video;
     ofPixels pixels;
     ofTexture videoTex;
-    ofPixels fhogImage1;
-    ofPixels fhogImage2;
-    ofPixels fhogImage3;
-    ofPixels fhogImage4;
+    ofImage fhogImage1;
+    ofImage fhogImage2;
+    ofImage fhogImage3;
+    ofImage fhogImage4;
     ofTexture fhogTex1;
     ofTexture fhogTex2;
     ofTexture fhogTex3;
