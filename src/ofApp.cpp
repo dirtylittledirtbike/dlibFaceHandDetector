@@ -14,8 +14,8 @@ void ofApp::setup(){
     //between left and right hands.
     deserialize(ofToDataPath("face_detector.svm", true)) >> detector1;
     deserialize(ofToDataPath("face_detector2.svm", true)) >> detector2;
-    deserialize(ofToDataPath("all_hands.svm", true)) >> detector3;
-    deserialize(ofToDataPath("all_hands2.svm", true)) >> detector4;
+    deserialize(ofToDataPath("hand_detector.svm", true)) >> detector3;
+    deserialize(ofToDataPath("hand_detector2.svm", true)) >> detector4;
     
     //push trained detectors into vector
     my_detectors.push_back(detector1);
@@ -176,7 +176,7 @@ void ofApp::draw(){
     //    ofSetColor(ofColor::white);
     //    fhogVidTex.draw(video.getWidth() - (video.getWidth() - video.getWidth()/1.5f), video.getHeight(), -video.getWidth()/1.5f, video.getHeight()/1.5f);
  
-
+    cout << ofGetFrameRate() <<endl;
 }
 
 //--------------------------------------------------------------
