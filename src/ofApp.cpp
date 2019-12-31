@@ -52,10 +52,7 @@ void ofApp::update(){
        
         //load video pixels into texture for displaying later
         videoTex.loadData(video.getPixels());
-        
-        //load fhog gradient image of video frame into texture
-        fhogVidTex.loadData(fhogVidFrame);
-        
+
         //if key pressed get fhog gradient image from current video frame and store in fhogVidFrame
         if (ofGetKeyPressed(' ')){
             array2d<matrix<float,31,1> > hog;
