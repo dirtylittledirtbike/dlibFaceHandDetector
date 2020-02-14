@@ -16,10 +16,7 @@ public:
     typedef dlib::scan_fhog_pyramid<dlib::pyramid_down<6> > image_scanner_type;
     
     //create dlib objects for multiple detectors
-    dlib::object_detector<image_scanner_type> detector1;
-    dlib::object_detector<image_scanner_type> detector2;
-    dlib::object_detector<image_scanner_type> detector3;
-    dlib::object_detector<image_scanner_type> detector4;
+    dlib::object_detector<image_scanner_type> detector1, detector2, detector3, detector4;
     
     //create a vector to store multiple detectors
     std::vector<dlib::object_detector<image_scanner_type> > my_detectors;
@@ -29,19 +26,9 @@ public:
     
     //image video and texture stuff for loading and displaying
     ofVideoGrabber video;
-    ofPixels pixels;
-    ofTexture videoTex;
-    ofImage fhogImage1;
-    ofImage fhogImage2;
-    ofImage fhogImage3;
-    ofImage fhogImage4;
-    ofTexture fhogTex1;
-    ofTexture fhogTex2;
-    ofTexture fhogTex3;
-    ofTexture fhogTex4;
-    
-    ofPixels fhogVidFrame;
-    ofTexture fhogVidTex;
+    ofPixels pixels, fhogVidFrame;
+    ofImage fhogImage1, fhogImage2, fhogImage3, fhogImage4;
+    ofTexture fhogTex1, fhogTex2, fhogTex3, fhogTex4, videoTex, fhogVidTex;
     
     bool gradientVid;
     
