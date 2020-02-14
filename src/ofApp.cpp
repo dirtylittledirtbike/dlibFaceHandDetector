@@ -164,8 +164,8 @@ void ofApp::draw(){
     //display fhog gradient from video feed
     if (gradientVid){
         
-    ofSetColor(ofColor::white);
-    fhogVidTex.draw(video.getWidth() + video.getHeight()/4 + video.getWidth()/1.3f, 0, -video.getWidth()/1.3f, video.getHeight()/1.3f);
+        ofSetColor(ofColor::white);
+        fhogVidTex.draw(video.getWidth() + video.getHeight()/4 + video.getWidth()/1.3f, 0, -video.getWidth()/1.3f, video.getHeight()/1.3f);
         
     }
     
